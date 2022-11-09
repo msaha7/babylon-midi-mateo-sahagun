@@ -18,7 +18,8 @@ function triggerNote(note, midi = true) {
 
     //displays note name in browser (you can remove this line)
     document.getElementById('txt').innerText = note.name + note.octave;
-
+    let listen = true;
+    let yAxis = -6;
     
     if (midi) { 
         try {
