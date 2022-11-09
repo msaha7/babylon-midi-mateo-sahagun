@@ -28,7 +28,7 @@ function triggerNote(note, midi = true) {
                 sphereMaker[note.name].position.x += yAxis;
                 sphereMaker2[note.name].position.x += yAxis;
                 sphereMaker3[note.name].position.x += yAxis;
-                xAxis += 10;
+                yAxis += 10;
 
             }
         } catch { }
@@ -39,7 +39,7 @@ function triggerNote(note, midi = true) {
             sphereMaker[note.name].position.x += yAxis;
             sphereMaker2[note.name].position.x += yAxis;
             sphereMaker3[note.name].position.x += yAxis;
-            xAxis += 10;
+            yAxis += 10;
 
         }
 
