@@ -1,6 +1,11 @@
 //https://editor.p5js.org/howshekilledit/sketches/P00w6cEmL
 let piano_init = false;
 
+let pNotes = ["A", "B", "C", "D","E","F","G"];
+
+let pColors = {bg: '#61bd41', start1:'#e8c61c', med:'#947179', end:'rgba(140,40,125,0.15)'};
+let sphereMaker ={}; sphereMaker2 = {}; sphereMaker3 = {};
+
 //default function plays note on keypress
 
 function triggerNote(note, midi = true) {
@@ -14,15 +19,30 @@ function triggerNote(note, midi = true) {
     //displays note name in browser (you can remove this line)
     document.getElementById('txt').innerText = note.name + note.octave;
 
-    //play note using appropriate function given input type
-    if (midi) { //midi keyboard input
+    
+    if (midi) { 
         try {
             playNote(note.name + note.octave);
-        } catch { }
-    } else { //regular keyboard input
-        synth.triggerAttack(note.name + note.octave);
-    }
+            if (listen){
+                sphereMaker[note.name].position.x += xAxis;
+                sphereMaker2[note.name].position.x += xAxis;
+                sphereMaker3[note.name].position.x += xAxis;
+                yAxis += 10;
 
+            }
+        } catch { }
+    } else { 
+        synth.triggerAttack(note.name + note.octave);
+
+        if (listen){
+            sphereMaker[note.name].position.x += xAxis;
+            sphereMaker2[note.name].position.x += xAxis;
+            sphereMaker3[note.name].position.x += xAxis;
+            yAxis += 10;
+
+        }
+
+    }
 
     //Show what we are receiving
     console.log(
@@ -89,6 +109,15 @@ function setup() {
     //initialize light
     var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
     light.intensity = 1;
+    for (let [i,n]of pNotes.entries()){
+        sphereMaker[n] = createSphere(0,0,i-12, 20);
+        sphereMaker2[n] = createSphere(0,0,i-5, 20);
+        sphereMaker3[n] = createSphere(0,0,i-20, 20);
+        sphereMaker2[n].material = hexMat(pColors.start1);
+        sphereMaker3[n].material = hexMat(pColors.med);
+        sphereMaker[n].material = hexMat(pColors.end);
+
+    }
 
 
     synth = new Tone.PolySynth(Tone.MonoSynth, {
