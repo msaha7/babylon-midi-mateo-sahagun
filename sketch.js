@@ -3,8 +3,9 @@ let piano_init = false;
 
 let pNotes = ["A", "B", "C", "D","E","F","G"];
 
-let pColors = {bg: '#666362', start1:'#36454F', med:'#808080', end:'rgba(140,40,125,0.15)'};
+let pColors = {bg: '#36454F', start1:'#301934', med:'#023020', end:'rgba(140,40,125,0.15)'};
 let sphereMaker ={}; sphereMaker2 = {}; sphereMaker3 = {};
+
 
 //default function plays note on keypress
 
@@ -18,33 +19,37 @@ function triggerNote(note, midi = true) {
 
     //displays note name in browser (you can remove this line)
     document.getElementById('txt').innerText = note.name + note.octave;
+
+
+    // variable for the sphere
+    let yAxis = -3;
     let listen = true;
-    let xAxis = -6;
-    let yAxis = 0;
-    
-    if (midi) { 
+
+    //play note using appropriate function given input type
+    if (midi) { //midi keyboard input
         try {
             playNote(note.name + note.octave);
             if (listen){
-                sphereMaker[note.name].position.x += xAxis;
-                sphereMaker2[note.name].position.x += xAxis;
-                sphereMaker3[note.name].position.x += xAxis;
+                sphereMaker[note.name].position.y += yAxis;
+                sphereMaker2[note.name].position.y += yAxis;
+                sphereMaker3[note.name].position.y += yAxis;
                 yAxis += 10;
 
             }
         } catch { }
-    } else { 
+    } else { //regular keyboard input
         synth.triggerAttack(note.name + note.octave);
 
         if (listen){
-            sphereMaker[note.name].position.x += xAxis;
-            sphereMaker2[note.name].position.x += xAxis;
-            sphereMaker3[note.name].position.x += xAxis;
+            sphereMaker[note.name].position.y += yAxis;
+            sphereMaker2[note.name].position.y += yAxis;
+            sphereMaker3[note.name].position.y += yAxis;
             yAxis += 10;
 
         }
 
     }
+
 
     //Show what we are receiving
     console.log(
@@ -102,7 +107,7 @@ function keyReleased() {
 function setup() {
     noLoop();
     //color background white
-    scene.clearColor = new BABYLON.Color3.FromHexString('#ffffff');
+    scene.clearColor = new BABYLON.Color3.FromHexString(pColors.bg);
 
     //initialize camera
     var camera = new BABYLON.ArcRotateCamera("Camera", 3 * Math.PI / 2, Math.PI / 4, 100, BABYLON.Vector3.Zero(), scene);
@@ -112,9 +117,9 @@ function setup() {
     var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
     light.intensity = 1;
     for (let [i,n]of pNotes.entries()){
-        sphereMaker[n] = createSphere(0,0,i-12, 10);
-        sphereMaker2[n] = createSphere(0,0,i-5, 10);
-        sphereMaker3[n] = createSphere(0,0,i-20, 10);
+        sphereMaker[n] = createSphere(0,0,i-12, 20);
+        sphereMaker2[n] = createSphere(0,0,i-5, 20);
+        sphereMaker3[n] = createSphere(0,0,i-20, 20);
         sphereMaker2[n].material = hexMat(pColors.start1);
         sphereMaker3[n].material = hexMat(pColors.med);
         sphereMaker[n].material = hexMat(pColors.end);
