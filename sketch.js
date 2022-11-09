@@ -19,15 +19,16 @@ function triggerNote(note, midi = true) {
     //displays note name in browser (you can remove this line)
     document.getElementById('txt').innerText = note.name + note.octave;
     let listen = true;
-    let yAxis = -6;
+    let xAxis = -6;
+    let yAxis = 0;
     
     if (midi) { 
         try {
             playNote(note.name + note.octave);
             if (listen){
-                sphereMaker[note.name].position.x += yAxis;
-                sphereMaker2[note.name].position.x += yAxis;
-                sphereMaker3[note.name].position.x += yAxis;
+                sphereMaker[note.name].position.x += xAxis;
+                sphereMaker2[note.name].position.x += xAxis;
+                sphereMaker3[note.name].position.x += xAxis;
                 yAxis += 10;
 
             }
@@ -36,9 +37,9 @@ function triggerNote(note, midi = true) {
         synth.triggerAttack(note.name + note.octave);
 
         if (listen){
-            sphereMaker[note.name].position.x += yAxis;
-            sphereMaker2[note.name].position.x += yAxis;
-            sphereMaker3[note.name].position.x += yAxis;
+            sphereMaker[note.name].position.x += xAxis;
+            sphereMaker2[note.name].position.x += xAxis;
+            sphereMaker3[note.name].position.x += xAxis;
             yAxis += 10;
 
         }
