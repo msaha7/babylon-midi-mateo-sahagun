@@ -3,7 +3,7 @@ let piano_init = false;
 
 let pNotes = ["A", "B", "C", "D","E","F","G"];
 
-let pColors = {bg: '#61bd41', start1:'#e8c61c', med:'#947179', end:'rgba(140,40,125,0.15)'};
+let pColors = {bg: '#666362', start1:'#36454F', med:'#808080', end:'rgba(140,40,125,0.15)'};
 let sphereMaker ={}; sphereMaker2 = {}; sphereMaker3 = {};
 
 //default function plays note on keypress
@@ -24,10 +24,10 @@ function triggerNote(note, midi = true) {
         try {
             playNote(note.name + note.octave);
             if (listen){
-                sphereMaker[note.name].position.x += xAxis;
-                sphereMaker2[note.name].position.x += xAxis;
-                sphereMaker3[note.name].position.x += xAxis;
-                yAxis += 10;
+                sphereMaker[note.name].position.x += yAxis;
+                sphereMaker2[note.name].position.x += yAxis;
+                sphereMaker3[note.name].position.x += yAxis;
+                xAxis += 10;
 
             }
         } catch { }
@@ -35,10 +35,10 @@ function triggerNote(note, midi = true) {
         synth.triggerAttack(note.name + note.octave);
 
         if (listen){
-            sphereMaker[note.name].position.x += xAxis;
-            sphereMaker2[note.name].position.x += xAxis;
-            sphereMaker3[note.name].position.x += xAxis;
-            yAxis += 10;
+            sphereMaker[note.name].position.x += yAxis;
+            sphereMaker2[note.name].position.x += yAxis;
+            sphereMaker3[note.name].position.x += yAxis;
+            xAxis += 10;
 
         }
 
@@ -110,9 +110,9 @@ function setup() {
     var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
     light.intensity = 1;
     for (let [i,n]of pNotes.entries()){
-        sphereMaker[n] = createSphere(0,0,i-12, 20);
-        sphereMaker2[n] = createSphere(0,0,i-5, 20);
-        sphereMaker3[n] = createSphere(0,0,i-20, 20);
+        sphereMaker[n] = createSphere(0,0,i-12, 10);
+        sphereMaker2[n] = createSphere(0,0,i-5, 10);
+        sphereMaker3[n] = createSphere(0,0,i-20, 10);
         sphereMaker2[n].material = hexMat(pColors.start1);
         sphereMaker3[n].material = hexMat(pColors.med);
         sphereMaker[n].material = hexMat(pColors.end);
